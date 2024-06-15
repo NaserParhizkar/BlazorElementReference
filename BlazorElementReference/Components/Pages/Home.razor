@@ -1,0 +1,31 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<div>
+    <input type="button" style="margin:5px;" @onclick="@(() => flag = false)" value="Hide Input" />
+    <input type="button" style="margin:5px;" @onclick="@(() => flag = true)" value="Show Input" />
+</div>
+
+<div>
+    <input type="button" style="margin:5px;" @onclick="focus" value="focus" />
+    @if (flag)
+    {
+        <InputText @ref="inTextElement" @bind-Value="textValue" />
+    }
+</div>
+
+@code {
+    InputText inTextElement;
+    string textValue;
+    bool flag = true;
+
+    async Task focus()
+    {
+        if (inTextElement.Element.HasValue)
+        {
+            await inTextElement.Element.Value.FocusAsync();
+        }
+    }
+
+}
